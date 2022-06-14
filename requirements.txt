@@ -1,1 +1,1 @@
-Flask==1.1.2 # https://pypi.org/project/Flask/
+Flask==2.1.0 # https://pypi.org/project/Flask/

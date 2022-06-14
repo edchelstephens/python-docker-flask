@@ -24,7 +24,7 @@ def get_products():
     return jsonify(products)
 
 
-@app.rounte("/product/<int:id>")
+@app.route("/product/<int:id>")
 def get_product(id):
     """Get product endpoint.
 
@@ -82,4 +82,4 @@ def delete_product(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0", port=8000)
