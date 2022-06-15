@@ -1,18 +1,10 @@
 from flask import Flask, jsonify, request
-
-
-products = [
-    {
-        "id": 1,
-        "name": "Product 1",
-    },
-    {
-        "id": 2,
-        "name": "Product 2",
-    },
-]
+from db import db
+from product import Product
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root/password@db/products"
+db.init_app(app)
 
 
 @app.route("/products")
