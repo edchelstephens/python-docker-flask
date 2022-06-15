@@ -165,3 +165,27 @@ A server application that acts as an intermediary between a client requesting a 
   provides an additional level of abstraction and control to ensure smooth flow of network traffic between clients
 
 - In our case, we're gonna receive web reqeusts with Nginx and then forward those requests to our products_api service
+
+# Nginx
+
+# Sample config file
+
+```
+events {}
+
+# Create an http server
+http{
+  server{
+    listen 80; # listen to port 80
+
+    # When a request is sent to the root of the server `/`
+    # Use proxy_pass to forward all reqeusts from `/` to http://products_api:8000/
+    # Note in the url that we don't specify an IP address but  it uses `products_api`, which is the name of the container to  which we send the request
+    # This is because Docker compose creates a private network and allows any container to access any other container using the name defined in the docker-compose.yml file
+    # In this network when a request is sent to products_api, it will be directed to products_api service/container
+    location / {
+      proxy_pass  http://products_api:8000/;
+    }
+  }
+}
+```
