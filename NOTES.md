@@ -38,3 +38,12 @@ CMD ["bash"]
 `CMD ["bash"]`
 
 - Defines the command to execute, which is the command to run when this image is ran as a container
+
+# Docker Image Layers
+
+- A docker image consists of read-only layers each of which represents a Dockerfile instruction. The layers are stacked and each one is a delta of change from the previous layer
+
+- We want the least volatile statements at the beginning of the file and the most volatile statements at the end
+
+- So in our case, we don't expect the packages in the requirement.txt to change very often, so we copy it to the image and run pip install at the beginning of the file.
+  But we do expect the source code to change frequently, so we copy it at the end.
