@@ -1,5 +1,5 @@
 # Build image from Python 3.9.1 Official Image as base layer
-FROM python:3.9.1
+FROM python
 
 # Set the current working directory of the image to code/
 WORKDIR /code
