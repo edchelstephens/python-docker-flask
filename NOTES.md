@@ -83,4 +83,70 @@ CMD ["bash"]
 ## How Docker Compose Workds
 
 - Docker Compose works by defining a Docker Compose YAML file that references the Dockerfiles for your services and can
-optionally pull in public images. In other words, we'll reference our apps Dockerfile in the docker compose file, and if we don't need to cuztomise an image, we can define it directly in the Docker Compose YAML file.
+  optionally pull in public images. In other words, we'll reference our apps Dockerfile in the docker compose file, and if we don't need to cuztomise an image, we can define it directly in the Docker Compose YAML file.
+
+Example:
+
+```
+
+services:
+
+  # Define a productservice that references the Dockerfile in the product-service directory
+  productservice:
+    build: product-service
+
+
+  # Define a service named web, that references the Dockerfile in the nginx directory
+  web:
+    build: nginx
+    ports:
+    - "80:80" # Expose port 80 of the internal container to port 80 external to the local machine
+
+
+  # Define and configure a db service that uses the official MySQL image
+  db:
+    image: mysql
+    # Using the command property, we add a couple additional command line properties
+    # First, initialize the database from the file /data/application/init.sql
+    # And then we tell MySQL to use native passwords
+    command: "--init-file /data/application/init.sql --default-authentication-plugin=mysql_native_password"
+
+    # The init.sql file is a file that we're going to write that creates our databases schema
+    # So we mount it from our project's db folder to the /data/application/ directory on the container using a volume
+    # This is a way that we can add files or directories to a container for which we do not define a Dockerfile.
+    volumes:
+      - "./db/init.sql:/data/application/init.sql"
+
+    # Set the environment variable MYSQL_ROOT_PASSWORD=password
+    # This means we can login to sql with username 'root' and password 'password'
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+
+```
+
+# NOTE: YAML files spacing and indentation are sensitive just like python, must have correct spacing and indentations
+
+# If you see validation errors when running docker compose , the first thing you should do is check that each token,
+
+# like services, or productservice, is properly indented with 2 spaces between levels of indentation
+
+# Docker Compose Commands
+
+`docker-compose build`
+
+- build all docker containers
+
+`docker-compose up -d`
+
+- start all docker containers, optionally in daemon mode using -d
+
+`docker-compose down`
+
+- stop all containers
+
+# Docker Compose
+
+## Services
+
+- A service is define as an abstract definition of a computing resource within an application that can be scaled or replaced independently form other components
+- Services are backed by a set of containers ran by the platform according to replication requirements and placement constraints.
