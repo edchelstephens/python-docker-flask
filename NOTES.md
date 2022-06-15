@@ -135,6 +135,7 @@ services:
 `docker-compose build`
 
 - build all docker containers
+- This effectively executes docker buid on each service, so if your service hasn't changed, it will use the cached layer and building will be done quickly
 
 `docker-compose up -d`
 
