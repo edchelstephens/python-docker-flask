@@ -1,5 +1,8 @@
 services:
   products_api:
     build: product-service
+
+  nginx_server:
+    build: nginx
     ports:
-      - "8000:8000"
+      - "80:80"
