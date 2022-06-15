@@ -19,7 +19,7 @@ app = Flask(__name__)
 def get_products():
     """Get products endpoint.
 
-    curl -v http://localhost:5000/products
+    curl -v http://localhost:8000/products
     """
     return jsonify(products)
 
@@ -28,7 +28,7 @@ def get_products():
 def get_product(id):
     """Get product endpoint.
 
-    curl -v http://localhost:5000/product/1
+    curl -v http://localhost:8000/product/1
     """
     product_list = [product for product in products if product["id"] == id]
     if len(product_list) == 0:
@@ -40,7 +40,7 @@ def get_product(id):
 def post_product():
     """Post a new product.
 
-    curl --header "Content-Type: application/json" --request POST --data '{"name": "Product 3"}' -v http://localhost:5000/product
+    curl --header "Content-Type: application/json" --request POST --data '{"name": "Product 3"}' -v http://localhost:8000/product
     """
     data = request.json
     new_id = max([product["id"] for product in products]) + 1
@@ -56,7 +56,7 @@ def post_product():
 def put_product(id):
     """Update  product.
 
-    curl --header "Content-Type: application/json" --request PUT --data '{"name": "Updated Product 2"}' -v http://localhost:5000/product/2
+    curl --header "Content-Type: application/json" --request PUT --data '{"name": "Updated Product 2"}' -v http://localhost:8000/product/2
     """
     data = request.json
     for product in products:
@@ -71,7 +71,7 @@ def put_product(id):
 def delete_product(id):
     """Delete product.
 
-    curl --request DELETE -v http://localhost:5000/product/2
+    curl --request DELETE -v http://localhost:8000/product/2
     """
     product_list = [product for product in products if product["id"] == id]
     if len(product_list) == 1:
