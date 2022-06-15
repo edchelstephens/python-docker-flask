@@ -139,7 +139,7 @@ services:
 
 `docker-compose up -d`
 
-- start all docker containers, optionally in daemon mode using -d
+- start all docker containers, optionally in daemon mode(in the background) using -d
 
 `docker-compose down`
 
