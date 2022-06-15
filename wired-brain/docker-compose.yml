@@ -1,5 +1,5 @@
 services:
-  products:
+  products_api:
     build: product-service
     ports:
       - "8000:8000"
