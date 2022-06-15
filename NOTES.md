@@ -151,3 +151,17 @@ services:
 
 - A service is define as an abstract definition of a computing resource within an application that can be scaled or replaced independently form other components
 - Services are backed by a set of containers ran by the platform according to replication requirements and placement constraints.
+
+# Proxy Server
+
+A server application that acts as an intermediary between a client requesting a resource and the server providing that resource
+
+- https://en.wikipedia.org/wiki/Proxy_server
+
+# Reverse Proxy
+
+- A reverse proxy server is a type of proxy server that typically sits behind the firewall in a
+  private network and directs client requests to the appropriate backend server. A reverse proxy
+  provides an additional level of abstraction and control to ensure smooth flow of network traffic between clients
+
+- In our case, we're gonna receive web reqeusts with Nginx and then forward those requests to our products_api service
