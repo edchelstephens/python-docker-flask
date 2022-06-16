@@ -3,7 +3,7 @@ from db import db
 from product import Product
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root/password@db/products"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:password@db/products"
 db.init_app(app)
 
 

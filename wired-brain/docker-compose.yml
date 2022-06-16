@@ -8,8 +8,8 @@ services:
       - "80:80"
 
   db:
-    image: arm64v8/mysql:8.0.28-oracle
-    command: "--init-file /data/application/init.sql --authentication_policy=mysql_native_password"
+    image: arm64v8/mysql:oracle
+    command: "--init-file /data/application/init.sql --default-authentication-plugin=mysql_native_password"
     volumes:
       - "./db/init.sql:/data/application/init.sql"
     environment:
