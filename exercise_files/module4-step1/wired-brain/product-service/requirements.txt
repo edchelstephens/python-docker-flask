@@ -1,4 +1,4 @@
-Flask==1.1.2
-Flask-SQLAlchemy==2.4.4
-flask_mysqldb==0.2.0
-SQLAlchemy<1.4
+Flask==2.1.2  # https://pypi.org/project/Flask/
+Flask-SQLAlchemy==2.5.1 # https://pypi.org/project/Flask-SQLAlchemy/
+flask-mysqldb==1.0.1 # https://pypi.org/project/Flask-MySQLdb/
+SQLAlchemy==1.4.37 # https://pypi.org/project/SQLAlchemy/
