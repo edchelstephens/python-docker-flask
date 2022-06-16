@@ -22,3 +22,13 @@ class Product(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.save()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @property
+    def json(self):
+        data = {"id": self.id, "name": self.name}
+
+        return data
