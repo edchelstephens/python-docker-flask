@@ -7,12 +7,23 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root/password@db/products"
 db.init_app(app)
 
 
+@app.route("/")
+def index():
+    """App index, return all products.
+
+    curl -v http://localhost:8000/
+    """
+    products = [product.json for product in Product.find_all()]
+    return jsonify(products)
+
+
 @app.route("/products")
 def get_products():
     """Get products endpoint.
 
     curl -v http://localhost:8000/products
     """
+    products = [product.json for product in Product.find_all()]
     return jsonify(products)
 
 
@@ -22,10 +33,10 @@ def get_product(id):
 
     curl -v http://localhost:8000/product/1
     """
-    product_list = [product for product in products if product["id"] == id]
-    if len(product_list) == 0:
-        return "Product with id {} not found".format(id), 404
-    return product_list[0]
+    product = Product.find_by_id(id)
+    if product:
+        return jsonify(product.json)
+    return "Product with id {} not found".format(id), 404
 
 
 @app.route("/product", methods=["POST"])
@@ -35,13 +46,10 @@ def post_product():
     curl --header "Content-Type: application/json" --request POST --data '{"name": "Product 3"}' -v http://localhost:8000/product
     """
     data = request.json
-    new_id = max([product["id"] for product in products]) + 1
+    product = Product(None, data["name"])
+    product.save_to_db()
 
-    new_product = {"id": new_id, "name": data["name"]}
-
-    products.append(new_product)
-
-    return jsonify(new_product), 201
+    return jsonify(product.json), 201
 
 
 @app.route("/product/<int:id>", methods=["PUT"])
@@ -51,10 +59,11 @@ def put_product(id):
     curl --header "Content-Type: application/json" --request PUT --data '{"name": "Updated Product 2"}' -v http://localhost:8000/product/2
     """
     data = request.json
-    for product in products:
-        if product["id"] == id:
-            product["name"] = data["name"]
-            return jsonify(product), 201
+    product = Product.find_by_id(id)
+    if product:
+        product.name = data["name"]
+        product.save_to_db()
+        return jsonify(product), 200
 
     return "Product with id {} not found".format(id), 404
 
@@ -65,10 +74,11 @@ def delete_product(id):
 
     curl --request DELETE -v http://localhost:8000/product/2
     """
-    product_list = [product for product in products if product["id"] == id]
-    if len(product_list) == 1:
-        products.remove(product_list[0])
-        return "Product with id {} deleted".format(id), 200
+    product = Product.find_by_id(id)
+    if product:
+        product.delete_from_db()
+        response = {"message": "Product with id {} deleted".format(id)}
+        return jsonify(response), 200
 
     return "Product with id {} not found".format(id), 404
 
