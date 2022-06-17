@@ -3,7 +3,7 @@ from db import db
 from product import Product
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root/password@db/products"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:password@db/products"
 db.init_app(app)
 
 
@@ -63,7 +63,7 @@ def put_product(id):
     if product:
         product.name = data["name"]
         product.save_to_db()
-        return jsonify(product), 200
+        return jsonify(product.json), 200
 
     return "Product with id {} not found".format(id), 404
 

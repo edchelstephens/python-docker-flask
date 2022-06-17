@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
   db:
-    image: mysql
+    image: arm64v8/mysql:8.0.28-oracle
     command: "--init-file /data/application/init.sql --default-authentication-plugin=mysql_native_password"
     volumes:
       - "./db/init.sql:/data/application/init.sql"
