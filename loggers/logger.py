@@ -1,6 +1,7 @@
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
+
 log = logging.getLogger(__name__)
 log.debug("DEBUG message")
 log.info("INFO message")
