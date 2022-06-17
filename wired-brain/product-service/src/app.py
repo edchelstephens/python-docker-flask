@@ -63,7 +63,7 @@ def put_product(id):
     if product:
         product.name = data["name"]
         product.save_to_db()
-        return jsonify(product), 200
+        return jsonify(product.json), 200
 
     return "Product with id {} not found".format(id), 404
 
