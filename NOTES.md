@@ -189,3 +189,7 @@ http{
   }
 }
 ```
+
+# Python Logging
+
+- Default logging configuration is WARNING
