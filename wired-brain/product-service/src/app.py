@@ -1,15 +1,36 @@
 import logging, logging.config
+import configparser
 
 from flask import Flask, jsonify, request
 from sqlalchemy import exc as AlchemyExceptions
+
 from db import db
 from product import Product
 
 logging.config.fileConfig("logging.ini", disable_existing_loggers=False)
 log = logging.getLogger(__name__)
 
+
+def get_database_url() -> str:
+    """Get database url string."""
+    config = configparser.ConfigParser()
+    config.read("db.ini")
+
+    database_config = config["mysql"]
+
+    host = database_config["host"]
+    username = database_config["username"]
+    password = database_config["password"]
+    database = database_config["database"]
+
+    database_url = f"mysql://{username}:{password}@{host}/{database}"
+    log.info(f"Connecting to database: {database_url}")
+
+    return database_url
+
+
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:password@db/products"
+app.config["SQLALCHEMY_DATABASE_URI"] = get_database_url()
 db.init_app(app)
 
 
