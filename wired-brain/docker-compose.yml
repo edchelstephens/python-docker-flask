@@ -1,8 +1,14 @@
+secrets:
+  db_password:
+    file: db_password.txt
+
 services:
   products_api:
     build: product-service
     volumes:
       - "./config:/config"
+    secrets:
+      - db_password
 
   nginx_server:
     build: nginx
