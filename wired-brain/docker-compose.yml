@@ -11,6 +11,7 @@ services:
     build: product-service
     volumes:
       - "./config:/config"
+      - "./product-service/src:/code"
     secrets:
       - db_password
     networks:

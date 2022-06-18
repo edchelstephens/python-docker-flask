@@ -59,6 +59,7 @@ def get_products():
     curl -v http://localhost:8000/products
     """
     try:
+        log.info("Getting Products From Flask Server inside")
         log.debug("GET /products")
         products = [product.json for product in Product.find_all()]
         return jsonify(products)
