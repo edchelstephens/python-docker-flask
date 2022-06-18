@@ -7,14 +7,14 @@ from sqlalchemy import exc as AlchemyExceptions
 from db import db
 from product import Product
 
-logging.config.fileConfig("logging.ini", disable_existing_loggers=False)
+logging.config.fileConfig("/config/logging.ini", disable_existing_loggers=False)
 log = logging.getLogger(__name__)
 
 
 def get_database_url() -> str:
     """Get database url string."""
     config = configparser.ConfigParser()
-    config.read("db.ini")
+    config.read("/config/db.ini")
 
     database_config = config["mysql"]
 
