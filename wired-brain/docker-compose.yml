@@ -1,3 +1,7 @@
+networks:
+  frontend:
+  backend:
+
 secrets:
   db_password:
     file: db_password.txt
@@ -9,11 +13,16 @@ services:
       - "./config:/config"
     secrets:
       - db_password
+    networks:
+      - frontend
+      - backend
 
   nginx_server:
     build: nginx
     ports:
       - "80:80"
+    networks:
+      - frontend
 
   db:
     image: arm64v8/mysql:oracle
@@ -23,6 +32,8 @@ services:
       - "db-volume:/var/lib/mysql"
     environment:
       - MYSQL_ROOT_PASSWORD=password
+    networks:
+    - backend
 
 volumes:
   db-volume:
