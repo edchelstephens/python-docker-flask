@@ -1,13 +1,14 @@
-import logging
+import logging.config
+import os
+from pathlib import Path
 
-consoleHandler = logging.StreamHandler()
 
-formatter = logging.Formatter("%(asctime)s %(levelname)-8s %(name)-10s: %(message)s")
-consoleHandler.setFormatter(formatter)
+parent_file = Path(__file__).parent
+log_file = parent_file / "logging.ini"
 
+
+logging.config.fileConfig(log_file, disable_existing_loggers=False)
 log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
-log.addHandler(consoleHandler)
 
 log.debug("DEBUG message")
 log.info("INFO message")
